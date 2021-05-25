@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <div class="container">
+    
+    <div class="jumbotron mt-5">
+      <div class="d-flex justify-content-center">
+        <div id="js-question" class="alert alert-primary" role="alert">
+          A simple primary alert—check it out!
+        </div>
+      </div>
+      
+      <div id="js-items" class="d-flex justify-content-center">
+        <div class="m-2">
+          <button type="button" id="js-btn-1" class="btn btn-primary">Primary</button>
+        </div>
+        <div class="m-2">
+          <button type="button" id="js-btn-2" class="btn btn-primary">Primary</button>
+        </div>
+        <div class="m-2">
+          <button type="button" id="js-btn-3" class="btn btn-primary">Primary</button>
+        </div>
+        <div class="m-2">
+          <button type="button" id="js-btn-4" class="btn btn-primary">Primary</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>const quiz = [
+  {
+    question: 'precaution  predict  prejudice',
+    answers: [ 'suppotting', 'through', 'before', 'behind'],
+    correct: 'before'
+  }, {
+    question: 'あいうえ？',
+    answers: [ 'MOTHER2', 'お', 'スーパードンキーコング', '星のカービィ'],
+    correct: 'MOTHER2'
+  }, {
+    question: 'かきくけ？',
+    answers: [ 'フリオニール', 'クラウド', 'こ', 'セシル'],
+    correct: 'セシル'
+  }, {
+    question: 'さしすせ？',
+    answers: [ 'そ', 'き', 'と', 'ィ'],
+    correct: 'そ'
+  }, {
+    question: 'はまやら？',
+    answers: [ 'わ', 'じ', 'け', 'そ'],
+    correct: 'わ'
+  }, {
+    question: 'トマト？',
+    answers: [ 'トマト', 'キャベツ', 'グリル', 'サンドイッチ'],
+    correct: 'トマト'
+  }, {
+    question: '岐阜大学は何県にある？',
+    answers: [ '愛知県', '東京都', 'ニュージャージー州', '岐阜県'],
+    correct: '岐阜県'
+  }, {
+    question: '1234？',
+    answers: [ '5', '1', '4', '2'],
+    correct: '5'
+  }, {
+    question: '1357?',
+    answers: [ '3', '122', '9', 'd'],
+    correct: '9'
+  }, {
+    question: '1+5=?',
+    answers: [ '2', '3', '5', '6'],
+    correct: '6'
+  },
+];
+
+const $window = window;
+const $doc = document;
+const $question = $doc.getElementById('js-question');
+const $buttons = $doc.querySelectorAll('.btn');
+
+const quizLen = quiz.length;
+let quizCount = 0;
+let score = 0;
+
+const init = () => {
+  $question.textContent = quiz[quizCount].question;
+  
+  const buttonLen = $buttons.length;
+  let btnIndex = 0;
+  
+  while(btnIndex < buttonLen){
+    $buttons[btnIndex].textContent = quiz[quizCount].answers[btnIndex];
+    btnIndex++;
+  }
+};
+
+const goToNext = () => {
+  quizCount++;
+  if(quizCount < quizLen){
+    init(quizCount);
+  } else {
+    // $window.alert('クイズ終了！');
+    showEnd();
+  }
+};
+
+const judge = (elm) => {
+  if(elm.textContent === quiz[quizCount].correct){
+    $window.alert('正解!');
+    score++;
+  } else {
+    $window.alert('不正解!');
+      }
+  goToNext();
+};
+
+const showEnd = () => {
+  $question.textContent = '終了！あなたのスコアは' + score + '/' + quizLen + 'です';
+  
+  const $items = $doc.getElementById('js-items');
+  $items.style.visibility = 'hidden';
+};
+
+init();
+
+let answersIndex = 0;
+let answersLen = quiz[quizCount].answers.length;
+
+while(answersIndex < answersLen){
+  $buttons[answersIndex].addEventListener('click', (e) => {
+    judge(e.target);
+  });
+  answersIndex++;
+}</script>
+
+</body>
+
+</html>
